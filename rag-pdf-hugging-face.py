@@ -6,9 +6,9 @@ from langchain.llms import HuggingFaceHub
 from langchain.chains import RetrievalQA
 import os
 
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = "REPLACE_API_KEY"
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = "REPLACE_WITH_API_KEY"
 # Load the PDF file
-pdf_loader = PyPDFLoader("largedocument.pdf")
+pdf_loader = PyPDFLoader("492301.pdf")
 documents = pdf_loader.load()
 
 print(f"Loaded {len(documents)} pages from the PDF.")
@@ -30,7 +30,7 @@ print("FAISS index created.")
 # Initialize the Hugging Face LLM (FLAN-T5 model)
 llm = HuggingFaceHub(
     repo_id="google/flan-t5-base",
-    model_kwargs={"temperature": 0, "max_length": 512}
+    model_kwargs={"temperature": 1, "max_length": 512}
 )
 
 # Create a retriever from the FAISS index
@@ -43,7 +43,7 @@ rag_chain = RetrievalQA.from_chain_type(
     chain_type="stuff", 
     return_source_documents=True
 )
-query = "What are the main conclusions about climate change in the document?"
+query = "what is amount of my electricity expense"
 response = rag_chain({"query": query})
 
 # Extract answer and sources
